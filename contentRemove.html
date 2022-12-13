@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Content Remove</title>
+    </head>
+    <body>
+        <form id="remove_form" method="post">
+            <input type="hidden" id="board_no" name="board_no" value="<%= result.board_no %>">
+            <input type="hidden" id="board_password" name="board_password" value="<%= result.board_password %>">
+        </form>
+
+        <script>
+            window.onload = function() {
+                let pwd = null;
+                if(window.confirm("정말로 삭제하시겠습니까?")) {
+                    pwd = prompt("암호를 입력하세요.");
+                    if(pwd == board_password.value) {
+                        remove_form.submit();
+                    } else {
+                        alert("암호가 틀렸습니다. 다시 입력하여 주세요.");
+                        location.href = "/remove/<%= result.board_no %>";
+                    }
+                } else {
+                    window.history.back();
+                }
+            };
+        </script>
+    </body>
+</html>

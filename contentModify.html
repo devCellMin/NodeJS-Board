@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Content Modify</title>
+        <style>
+            *, html, body {margin: 0;padding: 0; box-sizing: border-box;}
+
+            h1 {
+                margin: 20px auto 10px auto;
+                text-align: center;
+            }
+
+            #tb-write {
+                margin: 0 auto;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            #tb-write tr>th,
+            #tb-write tr>td {
+                border: 1px solid black;
+                padding: 5px 10px;
+                text-align: center;
+            }
+
+            #tb-write span {
+                font-size: 15px;
+            }
+
+            #board_title {
+                width: 300px;
+                height: 25px;
+            }
+
+            #board_pwd {
+                height: 25px;
+            }
+
+            #tb-write tr:nth-child(2) td {
+                text-align: right;
+            }
+
+            #tb-write tr:nth-child(3) >td:first-child {
+                padding: 30px;
+            }
+
+            #tb-write tr:nth-child(3) >td:last-child {
+                padding: 0;
+            }
+
+            #board_content {
+                margin: 0;
+                border: none;
+                resize: none;
+                padding: 7px;
+            }
+
+            #btnSubmit {
+                padding: 3px 20px;
+                font-size: 15px;
+                background-color: lightblue;
+                border: 1px solid gray;
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>수정</h1>
+        <hr><br>
+        <form id="form_content" method="post">
+            <table id="tb-write">
+                <tr>
+                    <td colspan="2">
+                        <span>제목 : </span>
+                        <input type="text" name="board_title" id="board_title" value="<%= result.board_title %>">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>암호 : </span>
+                        <input type="password" name="board_password" id="board_password" placeholder="비밀번호를 입력하세요.">
+                        <input type="hidden" id="prev_pwd" name="prev_pwd" value="<%= result.board_password %>">
+                    </td>
+                </tr>
+                <tr>
+                    <td><span>내용</span></td>
+                    <td>
+                        <textarea name="board_content" id="board_content" cols="60" rows="35"><%= result.board_content %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" id="btnSubmit" value="저장">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <script>
+            window.onload = function() {
+
+                board_title.focus();
+
+                btnSubmit.onclick = function() {
+                    if(prev_pwd.value == board_password.value) {
+                        if(window.confirm("저장 하시겠습니까?")) {
+                            form_content.submit();
+                        }
+                    } else if(board_password.value.length == 0) {
+                        alert("비밀번호를 입력하여 주세요.");
+                    } else {
+                        alert("비밀번호를 확인하여 주세요.");
+                    }
+                }
+            };
+        </script>
+    </body>
+</html>

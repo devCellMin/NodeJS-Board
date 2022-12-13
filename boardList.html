@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Board List</title>
+        <style>
+            *, html, body {margin: 0;padding: 0; box-sizing: border-box;}
+
+            h1 {
+                margin: 20px auto 10px auto;
+                text-align: center;
+            }
+
+            #contents {
+                margin: 0 auto;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+
+            #contents tr>th,
+            #contents tr>td {
+                padding: 5px 20px;
+                text-align: center;
+            }
+
+            #contents tr:not(:first-child)>td {
+                border-top: 1px solid lightgray;
+                border-bottom: 1px solid lightgray;
+            }
+
+            #contents tr:nth-child(2) {
+                border-top: 3px solid black;
+                border-bottom: 2px solid black;
+            }
+
+            #contents tr:last-child>td {
+                border-bottom: 3px solid black;
+            }
+
+            #contents tr:first-child td {
+                text-align: right;
+                padding-right: 20px;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+                font-size: 14px;
+                border: 1px solid black;
+                padding: 2px 5px;
+                cursor: pointer;
+            }
+
+            #contents tr>th:nth-child(2) {
+                width: 300px;
+            }
+
+            #contents tr>td:nth-child(2) {
+                width: 300px;
+                text-align: left;
+            }
+
+            #contents tr>td:nth-child(2):hover {
+                text-decoration: underline;
+            }
+
+            #contents tr>td:nth-child(2) a {
+                font-size: 17px;
+                border: none;
+            }
+            
+            #contents tr>td:not(:nth-child(2)) > a{
+                background-color: lightgray;
+            }
+
+            #btn_insert {
+                padding: 5px 10px;
+                background-color: lightblue;
+                border: 1px solid gray;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            span {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Content 목록</h1>
+        <hr>
+        <table id="contents">
+            <tr>
+                <td colspan="4">
+                    <input type="button" value="글쓰기" id="btn_insert" onclick="location.href='/write'">
+                </td>
+            </tr>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+            <% if(result.length == 0) { %>
+                <tr>
+                    <td colspan="4"><span>저장된 데이터가 없습니다.</span></td>
+                </tr>
+            <% } %>
+
+            <% result.forEach(function(item, index) { %>
+                <tr>
+                    <td>
+                        <%= item.board_no %>
+                    </td>
+                    <td>
+                        <a href="/read/<%= item.board_no %>"><%= item.board_title %></a>
+                    </td>
+                    <td>
+                        <a href="/modify/<%=item.board_no %>">수정</a>
+                    </td>
+                    <td>
+                        <a href="/remove/<%=item.board_no %>">삭제</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+</html>
